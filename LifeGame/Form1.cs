@@ -16,7 +16,7 @@ namespace LifeGame
 
         Bitmap canvas;
 
-        int CellSize = 5;
+        int CellSize = 3;
 
         public Form1()
         {
