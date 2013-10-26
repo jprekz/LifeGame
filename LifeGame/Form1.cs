@@ -18,6 +18,8 @@ namespace LifeGame
 
         int CellSize = 3;
 
+        bool firstDrawFlag = true;
+
         public Form1()
         {
             InitializeComponent();
@@ -38,6 +40,7 @@ namespace LifeGame
             Game.CellsLoop = this.LoopToolStripMenuItem.Checked;
             // 描画先とするImageオブジェクトを作成する
             canvas = new Bitmap(x * CellSize, y * CellSize);
+            firstDrawFlag = true;
         }
         
         private void Draw()
@@ -45,14 +48,38 @@ namespace LifeGame
             // ImageオブジェクトのGraphicsオブジェクトを作成する
             Graphics g = Graphics.FromImage(canvas);
 
-            g.FillRectangle(Brushes.White, 0, 0, CellSize * Game.CellsX, CellSize * Game.CellsY);
-            for (var j = 0; j < Game.CellsY; j++)
+            if ((firstDrawFlag)||(Game.BeforeCells == null))
             {
-                for (var i = 0; i < Game.CellsX; i++)
+                firstDrawFlag = false;
+                g.FillRectangle(Brushes.White, 0, 0, CellSize * Game.CellsX, CellSize * Game.CellsY);
+                for (var j = 0; j < Game.CellsY; j++)
                 {
-                    if (Game.Cells[i, j] == 1)
+                    for (var i = 0; i < Game.CellsX; i++)
                     {
-                        g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
+                        if (Game.Cells[i, j] == 1)
+                        {
+                            g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (var j = 0; j < Game.CellsY; j++)
+                {
+                    for (var i = 0; i < Game.CellsX; i++)
+                    {
+                        if (Game.Cells[i, j] != Game.BeforeCells[i, j])
+                        {
+                            if (Game.Cells[i, j] == 1)
+                            {
+                                g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
+                            }
+                            else
+                            {
+                                g.FillRectangle(Brushes.White, i * CellSize, j * CellSize, CellSize, CellSize);
+                            }
+                        }
                     }
                 }
             }

@@ -9,7 +9,8 @@ namespace LifeGame
     class LifeGame
     {
         public Cells Cells;
-        public Cells nextCells;
+        public Cells BeforeCells;
+        Cells nextCells;
         Cells bufCells;
 
         int cellsX;
@@ -111,6 +112,7 @@ namespace LifeGame
             bufCells = Cells;
             Cells = nextCells;
             nextCells = bufCells;
+            BeforeCells = bufCells;
         }
 
         int CellsCount(int x, int y)
