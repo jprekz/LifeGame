@@ -187,19 +187,24 @@ namespace LifeGame
 
         // 以下、マウスでセルを編集する際の処理
         int start = 0;  // 1 = 描画中
+        int onMouseCellX = 0;
+        int onMouseCellY = 0;
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             start = 1;
             if ((e.X / CellSize >= 0) && (e.X / CellSize < Game.CellsX) && (e.Y / CellSize >= 0) && (e.Y / CellSize < Game.CellsY))
             {
+                onMouseCellX = e.X / CellSize;
+                onMouseCellY = e.Y / CellSize;
+
                 if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
                 {
-                    Game.Cells[e.X / CellSize, e.Y / CellSize] = 1;
+                    Game.Cells[onMouseCellX, onMouseCellY] = 1;
                 }
                 else if ((e.Button & MouseButtons.Right) == MouseButtons.Right)
                 {
-                    Game.Cells[e.X / CellSize, e.Y / CellSize] = 0;
+                    Game.Cells[onMouseCellX, onMouseCellY] = 0;
                 }
             }
             Draw();
@@ -208,7 +213,6 @@ namespace LifeGame
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             start = 0;
-            Draw();
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -216,16 +220,23 @@ namespace LifeGame
             if (start == 0) return;
             if ((e.X / CellSize >= 0) && (e.X / CellSize < Game.CellsX) && (e.Y / CellSize >= 0) && (e.Y / CellSize < Game.CellsY))
             {
-                if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+                if ((e.X / CellSize != onMouseCellX) || (e.Y / CellSize != onMouseCellY))
                 {
-                    Game.Cells[e.X / CellSize, e.Y / CellSize] = 1;
-                }
-                else if ((e.Button & MouseButtons.Right) == MouseButtons.Right)
-                {
-                    Game.Cells[e.X / CellSize, e.Y / CellSize] = 0;
+                    onMouseCellX = e.X / CellSize;
+                    onMouseCellY = e.Y / CellSize;
+
+                    if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+                    {
+                        Game.Cells[onMouseCellX, onMouseCellY] = 1;
+                    }
+                    else if ((e.Button & MouseButtons.Right) == MouseButtons.Right)
+                    {
+                        Game.Cells[onMouseCellX, onMouseCellY] = 0;
+                    }
+
+                    Draw();
                 }
             }
-            //Draw(); // 重い
         }
     }
 }
