@@ -9,9 +9,10 @@ namespace LifeGame
     class LifeGame
     {
         public Cells Cells;
-        public Cells BeforeCells;
         Cells nextCells;
         Cells bufCells;
+
+        public bool[,] DrawFlags;
 
         int cellsX;
         int cellsY;
@@ -38,13 +39,16 @@ namespace LifeGame
 
             Cells = new Cells(cellsX,cellsY);
             nextCells = new Cells(cellsX,cellsY);
+            DrawFlags = new bool[cellsX, cellsY];
             for (var j = 0; j < cellsY; j++)
             {
                 for (var i = 0; i < cellsX; i++)
                 {
                     Cells[i, j] = 0;
+                    DrawFlags[i, j] = true;
                 }
             }
+            
         }
 
         public void CellsRndInit(decimal num)
@@ -89,10 +93,12 @@ namespace LifeGame
                         if (CellsCount(i, j) == 3)
                         {
                             nextCells[i, j] = 1;
+                            DrawFlags[i, j] = true;
                         }
                         else
                         {
                             nextCells[i, j] = 0;
+                            DrawFlags[i, j] = false;
                         }
                     }
                     else
@@ -100,10 +106,12 @@ namespace LifeGame
                         if (CellsCount(i, j) == 2 || CellsCount(i,j) == 3)
                         {
                             nextCells[i, j] = 1;
+                            DrawFlags[i, j] = false;
                         }
                         else
                         {
                             nextCells[i, j] = 0;
+                            DrawFlags[i, j] = true;
                         }
                     }
                 }
@@ -112,7 +120,6 @@ namespace LifeGame
             bufCells = Cells;
             Cells = nextCells;
             nextCells = bufCells;
-            BeforeCells = bufCells;
         }
 
         int CellsCount(int x, int y)

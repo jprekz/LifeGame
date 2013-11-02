@@ -18,8 +18,6 @@ namespace LifeGame
 
         int CellSize = 3;
 
-        bool firstDrawFlag = true;
-
         public Form1()
         {
             InitializeComponent();
@@ -40,7 +38,6 @@ namespace LifeGame
             Game.CellsLoop = this.LoopToolStripMenuItem.Checked;
             // 描画先とするImageオブジェクトを作成する
             canvas = new Bitmap(x * CellSize, y * CellSize);
-            firstDrawFlag = true;
         }
         
         private void Draw()
@@ -48,37 +45,20 @@ namespace LifeGame
             // ImageオブジェクトのGraphicsオブジェクトを作成する
             Graphics g = Graphics.FromImage(canvas);
 
-            if ((firstDrawFlag)||(Game.BeforeCells == null))
+            //一部だけ再描画
+            for (var j = 0; j < Game.CellsY; j++)
             {
-                firstDrawFlag = false;
-                g.FillRectangle(Brushes.White, 0, 0, CellSize * Game.CellsX, CellSize * Game.CellsY);
-                for (var j = 0; j < Game.CellsY; j++)
+                for (var i = 0; i < Game.CellsX; i++)
                 {
-                    for (var i = 0; i < Game.CellsX; i++)
+                    if (Game.DrawFlags[i, j])
                     {
                         if (Game.Cells[i, j] == 1)
                         {
                             g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
                         }
-                    }
-                }
-            }
-            else
-            {
-                for (var j = 0; j < Game.CellsY; j++)
-                {
-                    for (var i = 0; i < Game.CellsX; i++)
-                    {
-                        if (Game.Cells[i, j] != Game.BeforeCells[i, j])
+                        else
                         {
-                            if (Game.Cells[i, j] == 1)
-                            {
-                                g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
-                            }
-                            else
-                            {
-                                g.FillRectangle(Brushes.White, i * CellSize, j * CellSize, CellSize, CellSize);
-                            }
+                            g.FillRectangle(Brushes.White, i * CellSize, j * CellSize, CellSize, CellSize);
                         }
                     }
                 }
@@ -228,10 +208,12 @@ namespace LifeGame
                 if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
                 {
                     Game.Cells[onMouseCellX, onMouseCellY] = 1;
+                    Game.DrawFlags[onMouseCellX, onMouseCellY] = true;
                 }
                 else if ((e.Button & MouseButtons.Right) == MouseButtons.Right)
                 {
                     Game.Cells[onMouseCellX, onMouseCellY] = 0;
+                    Game.DrawFlags[onMouseCellX, onMouseCellY] = true;
                 }
             }
             Draw();
@@ -255,10 +237,12 @@ namespace LifeGame
                     if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
                     {
                         Game.Cells[onMouseCellX, onMouseCellY] = 1;
+                        Game.DrawFlags[onMouseCellX, onMouseCellY] = true;
                     }
                     else if ((e.Button & MouseButtons.Right) == MouseButtons.Right)
                     {
                         Game.Cells[onMouseCellX, onMouseCellY] = 0;
+                        Game.DrawFlags[onMouseCellX, onMouseCellY] = true;
                     }
 
                     Draw();
