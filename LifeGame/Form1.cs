@@ -52,6 +52,7 @@ namespace LifeGame
                 {
                     if (Game.DrawFlags[i, j])
                     {
+                        Game.DrawFlags[i, j] = false;
                         if (Game.Cells[i, j] == 1)
                         {
                             g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
@@ -129,6 +130,13 @@ namespace LifeGame
                 CellSize = (int)form_cell.numericUpDown1.Value;
                 // 描画先とするImageオブジェクトを作成する
                 canvas = new Bitmap(Game.CellsX * CellSize, Game.CellsY * CellSize);
+                for (var j = 0; j < Game.CellsY; j++)
+                {
+                    for (var i = 0; i < Game.CellsX; i++)
+                    {
+                        Game.DrawFlags[i, j] = true;
+                    }
+                }
                 Draw();
             }
             form_cell.Dispose();
