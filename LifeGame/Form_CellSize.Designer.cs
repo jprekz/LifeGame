@@ -53,17 +53,18 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 19);
+            this.numericUpDown1.Size = new System.Drawing.Size(124, 19);
             this.numericUpDown1.TabIndex = 1;
             this.numericUpDown1.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.numericUpDown1.Enter += new System.EventHandler(this.numericUpDown1_Enter);
             // 
             // button_apply
             // 
-            this.button_apply.Location = new System.Drawing.Point(66, 100);
+            this.button_apply.Location = new System.Drawing.Point(70, 104);
             this.button_apply.Name = "button_apply";
             this.button_apply.Size = new System.Drawing.Size(75, 23);
             this.button_apply.TabIndex = 2;
@@ -73,7 +74,8 @@
             // 
             // button_cancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(147, 100);
+            this.button_cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button_cancel.Location = new System.Drawing.Point(151, 104);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 3;
@@ -83,8 +85,10 @@
             // 
             // Form_CellSize
             // 
+            this.AcceptButton = this.button_apply;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.button_cancel;
             this.ClientSize = new System.Drawing.Size(238, 139);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.button_apply);

@@ -76,30 +76,6 @@ namespace LifeGame
             Draw();
         }
 
-        private void ExitXToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void LoopToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Game.CellsLoop = this.LoopToolStripMenuItem.Checked;
-            Settings1.Default.CellsLoop = this.LoopToolStripMenuItem.Checked;
-        }
-
-        private void PauseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = !timer1.Enabled;
-            if (timer1.Enabled)
-            {
-                this.PauseToolStripMenuItem.Text = "一時停止";
-            }
-            else
-            {
-                this.PauseToolStripMenuItem.Text = "開始";
-            }
-        }
-
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (timer1.Enabled)
@@ -119,27 +95,6 @@ namespace LifeGame
                 Draw();
             }
             form_new.Dispose();
-        }
-
-        private void CellSizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form_CellSize form_cell = new Form_CellSize();
-            form_cell.ShowDialog();
-            if (form_cell.ApplyFlag)
-            {
-                CellSize = (int)form_cell.numericUpDown1.Value;
-                // 描画先とするImageオブジェクトを作成する
-                canvas = new Bitmap(Game.CellsX * CellSize, Game.CellsY * CellSize);
-                for (var j = 0; j < Game.CellsY; j++)
-                {
-                    for (var i = 0; i < Game.CellsX; i++)
-                    {
-                        Game.DrawFlags[i, j] = true;
-                    }
-                }
-                Draw();
-            }
-            form_cell.Dispose();
         }
 
         private void OpenOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -177,7 +132,7 @@ namespace LifeGame
             // カンマ区切りで分割して配列に格納する
             string[] stArrayData = stBuffer.Split(',');
             int num;
-            int[] stIntData = new int[stArrayData.Length];;
+            int[] stIntData = new int[stArrayData.Length]; ;
             for (int i = 0; i <= stArrayData.Length - 1; i++)
             {
                 if (int.TryParse(stArrayData[i], out num))
@@ -198,6 +153,64 @@ namespace LifeGame
             Game.CellsMatrixInit(stIntData.Skip(2).ToArray());
 
             return 0;
+        }
+
+        private void ExitXToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void LoopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Game.CellsLoop = this.LoopToolStripMenuItem.Checked;
+            Settings1.Default.CellsLoop = this.LoopToolStripMenuItem.Checked;
+        }
+
+        private void CellSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_CellSize form_cell = new Form_CellSize();
+            form_cell.numericUpDown1.Value = CellSize;
+            form_cell.ShowDialog();
+            if (form_cell.ApplyFlag)
+            {
+                CellSize = (int)form_cell.numericUpDown1.Value;
+                // 描画先とするImageオブジェクトを作成する
+                canvas = new Bitmap(Game.CellsX * CellSize, Game.CellsY * CellSize);
+                for (var j = 0; j < Game.CellsY; j++)
+                {
+                    for (var i = 0; i < Game.CellsX; i++)
+                    {
+                        Game.DrawFlags[i, j] = true;
+                    }
+                }
+                Draw();
+            }
+            form_cell.Dispose();
+        }
+
+        private void SpeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_speed form_speed = new Form_speed();
+            form_speed.numericUpDown1.Value = this.timer1.Interval;
+            form_speed.ShowDialog();
+            if(form_speed.ApplyFlag)
+            {
+                this.timer1.Interval = (int)form_speed.numericUpDown1.Value;
+            }
+            form_speed.Dispose();
+        }
+
+        private void PauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = !timer1.Enabled;
+            if (timer1.Enabled)
+            {
+                this.PauseToolStripMenuItem.Text = "一時停止";
+            }
+            else
+            {
+                this.PauseToolStripMenuItem.Text = "開始";
+            }
         }
 
         // 以下、マウスでセルを編集する際の処理

@@ -42,6 +42,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.SpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -99,7 +100,8 @@
             this.GameToolStripMenuItem.CheckOnClick = true;
             this.GameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoopToolStripMenuItem,
-            this.CellSizeToolStripMenuItem});
+            this.CellSizeToolStripMenuItem,
+            this.SpeedToolStripMenuItem});
             this.GameToolStripMenuItem.Name = "GameToolStripMenuItem";
             this.GameToolStripMenuItem.Size = new System.Drawing.Size(75, 22);
             this.GameToolStripMenuItem.Text = "ゲーム(G)";
@@ -108,14 +110,14 @@
             // 
             this.LoopToolStripMenuItem.CheckOnClick = true;
             this.LoopToolStripMenuItem.Name = "LoopToolStripMenuItem";
-            this.LoopToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.LoopToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.LoopToolStripMenuItem.Text = "セルのループ";
             this.LoopToolStripMenuItem.Click += new System.EventHandler(this.LoopToolStripMenuItem_Click);
             // 
             // CellSizeToolStripMenuItem
             // 
             this.CellSizeToolStripMenuItem.Name = "CellSizeToolStripMenuItem";
-            this.CellSizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.CellSizeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.CellSizeToolStripMenuItem.Text = "セルの大きさ";
             this.CellSizeToolStripMenuItem.Click += new System.EventHandler(this.CellSizeToolStripMenuItem_Click);
             // 
@@ -152,6 +154,13 @@
             this.openFileDialog1.DefaultExt = "txt";
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // SpeedToolStripMenuItem
+            // 
+            this.SpeedToolStripMenuItem.Name = "SpeedToolStripMenuItem";
+            this.SpeedToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.SpeedToolStripMenuItem.Text = "実行速度の変更";
+            this.SpeedToolStripMenuItem.Click += new System.EventHandler(this.SpeedToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -187,6 +196,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem OpenOToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem SpeedToolStripMenuItem;
     }
 }
 

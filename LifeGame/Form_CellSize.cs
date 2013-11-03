@@ -29,5 +29,10 @@ namespace LifeGame
         {
             this.Close();
         }
+
+        private void numericUpDown1_Enter(object sender, EventArgs e)
+        {
+            this.numericUpDown1.Select(0, numericUpDown1.Value.ToString().Length);
+        }
     }
 }
