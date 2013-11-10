@@ -17,12 +17,11 @@ namespace LifeGame
         Bitmap canvas;
 
         int CellSize = 3;
+        bool ShowGrid = false;
 
         public Form1()
         {
             InitializeComponent();
-            this.LoopToolStripMenuItem.Checked = Settings1.Default.CellsLoop;
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -46,21 +45,76 @@ namespace LifeGame
             Graphics g = Graphics.FromImage(canvas);
 
             //一部だけ再描画
-            for (var j = 0; j < Game.CellsY; j++)
+            if (ShowGrid)
             {
+                for (var j = 0; j < Game.CellsY; j++)
+                {
+                    for (var i = 0; i < Game.CellsX; i++)
+                    {
+                        if (Game.DrawFlags[i, j])
+                        {
+                            Game.DrawFlags[i, j] = false;
+                            if (Game.Cells[i, j] == 1)
+                            {
+                                g.FillRectangle(Brushes.Black, i * CellSize + 1, j * CellSize + 1, CellSize-1, CellSize-1);
+                            }
+                            else
+                            {
+                                g.FillRectangle(Brushes.White, i * CellSize + 1, j * CellSize + 1, CellSize-1, CellSize-1);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (var j = 0; j < Game.CellsY; j++)
+                {
+                    for (var i = 0; i < Game.CellsX; i++)
+                    {
+                        if (Game.DrawFlags[i, j])
+                        {
+                            Game.DrawFlags[i, j] = false;
+                            if (Game.Cells[i, j] == 1)
+                            {
+                                g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
+                            }
+                            else
+                            {
+                                g.FillRectangle(Brushes.White, i * CellSize, j * CellSize, CellSize, CellSize);
+                            }
+                        }
+                    }
+                }
+            }
+            // Graphicsオブジェクトのリソースを解放する
+            g.Dispose();
+            // pictureBox1に表示する
+            pictureBox1.Image = canvas;
+        }
+
+        private void DrawGrid()
+        {
+            // ImageオブジェクトのGraphicsオブジェクトを作成する
+            Graphics g = Graphics.FromImage(canvas);
+            if (ShowGrid)
+            {
+                for (var i = 0; i < Game.CellsY; i++)
+                {
+                    g.DrawLine(Pens.LightGray, 0, i * CellSize, Game.CellsX * CellSize, i * CellSize);
+                }
                 for (var i = 0; i < Game.CellsX; i++)
                 {
-                    if (Game.DrawFlags[i, j])
+                    g.DrawLine(Pens.LightGray, i * CellSize, 0, i * CellSize, Game.CellsY * CellSize);
+                }
+            }
+            else
+            {
+                for (var j = 0; j < Game.CellsY; j++)
+                {
+                    for (var i = 0; i < Game.CellsX; i++)
                     {
-                        Game.DrawFlags[i, j] = false;
-                        if (Game.Cells[i, j] == 1)
-                        {
-                            g.FillRectangle(Brushes.Black, i * CellSize, j * CellSize, CellSize, CellSize);
-                        }
-                        else
-                        {
-                            g.FillRectangle(Brushes.White, i * CellSize, j * CellSize, CellSize, CellSize);
-                        }
+                        Game.DrawFlags[i, j] = true;
                     }
                 }
             }
@@ -163,7 +217,15 @@ namespace LifeGame
         private void LoopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Game.CellsLoop = this.LoopToolStripMenuItem.Checked;
-            Settings1.Default.CellsLoop = this.LoopToolStripMenuItem.Checked;
+        }
+
+        private void GridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowGrid = this.GridToolStripMenuItem.Checked;
+
+            DrawGrid();
+            Draw();
+
         }
 
         private void CellSizeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -183,6 +245,7 @@ namespace LifeGame
                         Game.DrawFlags[i, j] = true;
                     }
                 }
+                DrawGrid();
                 Draw();
             }
             form_cell.Dispose();

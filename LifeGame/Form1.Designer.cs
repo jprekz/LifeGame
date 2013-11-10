@@ -38,11 +38,12 @@
             this.GameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LoopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CellSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.SpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -100,6 +101,7 @@
             this.GameToolStripMenuItem.CheckOnClick = true;
             this.GameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoopToolStripMenuItem,
+            this.GridToolStripMenuItem,
             this.CellSizeToolStripMenuItem,
             this.SpeedToolStripMenuItem});
             this.GameToolStripMenuItem.Name = "GameToolStripMenuItem";
@@ -110,16 +112,23 @@
             // 
             this.LoopToolStripMenuItem.CheckOnClick = true;
             this.LoopToolStripMenuItem.Name = "LoopToolStripMenuItem";
-            this.LoopToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.LoopToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.LoopToolStripMenuItem.Text = "セルのループ";
             this.LoopToolStripMenuItem.Click += new System.EventHandler(this.LoopToolStripMenuItem_Click);
             // 
             // CellSizeToolStripMenuItem
             // 
             this.CellSizeToolStripMenuItem.Name = "CellSizeToolStripMenuItem";
-            this.CellSizeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.CellSizeToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.CellSizeToolStripMenuItem.Text = "セルの大きさ";
             this.CellSizeToolStripMenuItem.Click += new System.EventHandler(this.CellSizeToolStripMenuItem_Click);
+            // 
+            // SpeedToolStripMenuItem
+            // 
+            this.SpeedToolStripMenuItem.Name = "SpeedToolStripMenuItem";
+            this.SpeedToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.SpeedToolStripMenuItem.Text = "実行速度の変更";
+            this.SpeedToolStripMenuItem.Click += new System.EventHandler(this.SpeedToolStripMenuItem_Click);
             // 
             // PauseToolStripMenuItem
             // 
@@ -154,12 +163,13 @@
             this.openFileDialog1.DefaultExt = "txt";
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // SpeedToolStripMenuItem
+            // GridToolStripMenuItem
             // 
-            this.SpeedToolStripMenuItem.Name = "SpeedToolStripMenuItem";
-            this.SpeedToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.SpeedToolStripMenuItem.Text = "実行速度の変更";
-            this.SpeedToolStripMenuItem.Click += new System.EventHandler(this.SpeedToolStripMenuItem_Click);
+            this.GridToolStripMenuItem.CheckOnClick = true;
+            this.GridToolStripMenuItem.Name = "GridToolStripMenuItem";
+            this.GridToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.GridToolStripMenuItem.Text = "グリッド線を表示";
+            this.GridToolStripMenuItem.Click += new System.EventHandler(this.GridToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -171,7 +181,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "LifeGame";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -197,6 +207,7 @@
         private System.Windows.Forms.ToolStripMenuItem OpenOToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem SpeedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem GridToolStripMenuItem;
     }
 }
 
